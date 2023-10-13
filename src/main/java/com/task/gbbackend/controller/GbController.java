@@ -39,16 +39,23 @@ public class GbController {
 
     //approving the Guest Entry detail in the database
     @PutMapping("/approveEntry")
-    private Guest approveGuest(@RequestParam String name)
+    private Guest approveGuest(@RequestParam Integer id)
     {
-        return guestBookService.approveGuestEntry(name);
+        return guestBookService.approveGuestEntry(id);
+    }
+
+    //edit the Guest Entry detail in the database
+    @PutMapping("/editEntry")
+    private Guest editGuest(@RequestParam Integer id,@RequestBody Guest guest)
+    {
+        return guestBookService.editGuestEntry(guest,id);
     }
 
     //approving the Guest Entry detail in the database
     @DeleteMapping("/removeEntry")
-    private GbRemoveResponse remeoveGuest(@RequestParam String name)
+    private GbRemoveResponse remeoveGuest(@RequestParam Integer id)
     {
-        GbRemoveResponse response = guestBookService.removeGuestEntry(name);
+        GbRemoveResponse response = guestBookService.removeGuestEntry(id);
          return response;
     }
 

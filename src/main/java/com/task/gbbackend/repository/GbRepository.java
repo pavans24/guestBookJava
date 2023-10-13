@@ -11,4 +11,7 @@ public interface GbRepository extends JpaRepository<Guest, Integer> {
     //Spring Data JPA will automatically generate the query method
     Guest findByUsername(String username);
     Guest findByName(String username);
+
+
+
 }

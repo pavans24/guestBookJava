@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GuestBookService {
@@ -64,20 +65,32 @@ public class GuestBookService {
     }
 
     //to create the Guest Entry in the Database
-    public Guest approveGuestEntry(String name)
+    public Guest approveGuestEntry(Integer id)
     {
 
-        Guest guestSearchResult = gbRepository.findByName(name);
-        guestSearchResult.setMessage("Approved");
-        return gbRepository.save(guestSearchResult);
+        Optional<Guest> guestSearchResult = gbRepository.findById(id);
+        guestSearchResult.get().setMessage("Approved");
+        return gbRepository.save(guestSearchResult.get());
+    }
+
+    //to edit the Guest Entry in the Database
+    public Guest editGuestEntry(Guest guest,Integer id)
+    {
+
+        Optional<Guest> guestSearchResult = gbRepository.findById(id);
+        guestSearchResult.get().setName(guest.getName());
+        guestSearchResult.get().setEmail(guest.getEmail());
+        guestSearchResult.get().setMessage("Edited");
+
+        return gbRepository.save(guestSearchResult.get());
     }
 
     //to remove the Guest Entry from the Database
-    public GbRemoveResponse removeGuestEntry(String name)
+    public GbRemoveResponse removeGuestEntry(Integer id)
     {
         GbRemoveResponse response = new GbRemoveResponse();
-        Guest guestSearchResult = gbRepository.findByName(name);
-        gbRepository.delete(guestSearchResult);
+        Optional<Guest> guestSearchResult = gbRepository.findById(id);
+        gbRepository.delete(guestSearchResult.get());
         response.setStatus("success");
         response.setStatusCode("200");
         return response;
