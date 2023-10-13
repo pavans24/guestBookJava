@@ -8,4 +8,5 @@ import lombok.Setter;
 public class GbSignUpResponse {
     public String status;
     public String statusCode;
+    public Integer id;
 }

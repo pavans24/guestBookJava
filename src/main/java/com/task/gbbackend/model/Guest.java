@@ -33,7 +33,9 @@ public class Guest {
     @Column
     private String message;
     @Column
-    private String image;
+    private byte[] image;
     @Column
     private String identifier;
+    @Column(columnDefinition = "BLOB")
+    private String data;
 }

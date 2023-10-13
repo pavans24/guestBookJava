@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,9 +33,11 @@ public class GuestBookService {
     //to save the Guest SignUp Data
     public GbSignUpResponse create(Guest guest)
     {
+        guest.setData(guest.getData());
         gbRepository.save(guest);
         gbSignUpResponse.setStatus("success");
         gbSignUpResponse.setStatusCode("200");
+        gbSignUpResponse.setId(gbRepository.save(guest).getId());
         return gbSignUpResponse;
     }
 

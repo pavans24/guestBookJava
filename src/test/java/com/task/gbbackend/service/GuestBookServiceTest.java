@@ -95,9 +95,9 @@ public class GuestBookServiceTest {
         Guest guest = new Guest();
         guest.setName("test2");
 
-        Mockito.when(gbRepository.findByName("test2")).thenReturn(guest);
+        Mockito.when(gbRepository.findById(1)).thenReturn(Optional.of(guest));
 
-        guestBookService.removeGuestEntry("test2");
+        guestBookService.removeGuestEntry(1);
 
         // check
         Mockito.verify(gbRepository).delete(guest);
